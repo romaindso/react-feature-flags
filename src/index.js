@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import App from './App';
 import { FeatureFlags } from './FeatureFlags';
+import './index.css';
 
 // To load from anywhere (fetch, localStorage, a json file, Redux...)
 const flags = [
