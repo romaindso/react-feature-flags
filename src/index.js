@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 import { FeatureFlags } from './FeatureFlags';
 
-// To load from anywhere (fetch, localStorage, Redux...)
+// To load from anywhere (fetch, localStorage, a json file, Redux...)
 const flags = [
   { name: 'vipOnly', isActive: false },
   { name: 'adminOnly', isActive: true }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
-import './App.css';
 import { FeatureFlagsConsumer } from './FeatureFlags';
+import './App.css';
 
 class App extends Component {
   render() {
@@ -12,10 +12,10 @@ class App extends Component {
           <h1 className="App-title">react-feature-flags</h1>
         </header>
         <FeatureFlagsConsumer authorizedFlags={['vipOnly']}>
-          <div><h1>For VIP</h1></div>
+          <h1>For VIP</h1>
         </FeatureFlagsConsumer>
         <FeatureFlagsConsumer authorizedFlags={['adminOnly']}>
-          <div><h1>For admin</h1></div>
+          <h1>For admin</h1>
         </FeatureFlagsConsumer>
       </div >
     );
