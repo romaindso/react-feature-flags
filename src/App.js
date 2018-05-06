@@ -13,13 +13,16 @@ class App extends Component {
         </header>
         <FeatureFlagsConsumer
           authorizedFlags={['vipOnly']}
-          renderOn={() => <h1>For VIP</h1>}
-          renderOff={() => <h1>For not vip</h1>}
+          renderOn={() => <h1>VIP (renderProps)</h1>}
+          renderOff={() => <h1>NO VIP (renderProps)</h1>}
         />
+        <FeatureFlagsConsumer authorizedFlags={['vipOnly']}>
+          <h1>VIP (children props)</h1>
+        </FeatureFlagsConsumer>
         <FeatureFlagsConsumer
           authorizedFlags={['adminOnly', 'vipOnly']}
           exactFlags
-          renderOn={() => <h1>For both admin and VIP</h1>}
+          renderOn={() => <h1>Admin and VIP (renderProps)</h1>}
         />
       </div >
     );

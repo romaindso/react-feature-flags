@@ -25,6 +25,10 @@ export class FeatureFlagsConsumer extends Component {
     }).length;
   }
 
+  resolveRender(flags) {
+    return this.props.children && this.props.children ? this.props.children : this.props.renderOn(flags);
+  }
+
   render() {
     const { authorizedFlags, exactFlags } = this.props;
 
@@ -33,11 +37,11 @@ export class FeatureFlagsConsumer extends Component {
         {(flags) => {
           if (exactFlags) {
             return this.matchingFlags(flags) && this.matchingFlags(flags) === authorizedFlags.length
-              ? this.props.renderOn(flags)
+              ? this.resolveRender(flags)
               : this.props.renderOff(flags);
           } else {
             return this.matchingFlags(flags)
-              ? this.props.renderOn(flags)
+              ? this.resolveRender(flags)
               : this.props.renderOff(flags)
           }
         }}

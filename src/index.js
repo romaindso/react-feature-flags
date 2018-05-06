@@ -6,7 +6,7 @@ import './index.css';
 
 // To load from anywhere (fetch, localStorage, a json file, Redux...)
 const flags = [
-  { name: 'vipOnly', isActive: false },
+  { name: 'vipOnly', isActive: true },
   { name: 'adminOnly', isActive: true }
 ];
 
