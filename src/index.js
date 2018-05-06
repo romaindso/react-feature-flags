@@ -51,6 +51,15 @@ export class FeatureFlagsConsumer extends Component {
 }
 
 export class FeatureFlagsProvider extends Component {
+
+  static propTypes = {
+    value: PropTypes.arrayOf(PropTypes.shape({
+      name: PropTypes.string,
+      isActive: PropTypes.bool
+    })).isRequired
+  }
+
+
   render() {
     const { children, value } = this.props;
     return (
