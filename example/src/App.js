@@ -1,16 +1,10 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import { FeatureFlagsConsumer } from './FeatureFlags';
-import './App.css';
+import React, { Component } from 'react'
+import { FeatureFlagsConsumer } from 'react-feature-flags';
 
-class App extends Component {
+export default class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">react-feature-flags</h1>
-        </header>
+      <div>
         <FeatureFlagsConsumer
           authorizedFlags={['vipOnly']}
           renderOn={() => <h1>VIP (renderProps)</h1>}
@@ -24,9 +18,7 @@ class App extends Component {
           exactFlags
           renderOn={() => <h1>Admin and VIP (renderProps)</h1>}
         />
-      </div >
-    );
+      </div>
+    )
   }
 }
-
-export default App;

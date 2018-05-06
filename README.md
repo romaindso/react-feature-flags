@@ -1,11 +1,20 @@
 # react-feature-flags
 
-Some experiments with feature flags using the new Context API (React 16.3)
+> 
+
+[![NPM](https://img.shields.io/npm/v/react-feature-flags.svg)](https://www.npmjs.com/package/react-feature-flags) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+
 
 > A feature toggle (also feature switch, feature flag, feature flipper, conditional feature, etc.) is a technique in software development that attempts to provide an alternative to maintaining multiple source-code branches (known as feature branches), such that a feature can be tested even before it is completed and ready for release. Feature toggle is used to hide, enable or disable the feature during run time. For example, during the development process, a developer can enable the feature for testing and disable it for other users.
 https://en.wikipedia.org/wiki/Feature_toggle
 
-## Getting started
+## Install
+
+```bash
+npm install --save react-feature-flags
+```
+
+## Usage
 ### Load your flags
 Get your flags from anywhere: fetch, localStorage, a json file, Redux...
 
@@ -16,15 +25,19 @@ const flags = [
 ];
 ```
 
-### FeatureFlags.Provider
-Wrap your root component with `FeatureFlags.Provider` and pass your flags to it with the `value` props.
+### FeatureFlagsProvider
+Wrap your root component with `FeatureFlagsProvider` and pass your flags to it with the `value` props.
 
 ```javascript
-import { FeatureFlags } from './FeatureFlags';
+// (imports React, ReactDOM, App component...)
+import { FeatureFlagsProvider } from 'react-feature-flags';
 
-<FeatureFlags.Provider value={flags}>
-  <App />
-</FeatureFlags.Provider>
+ReactDOM.render(
+  <FeatureFlagsProvider value={flags}>
+    <App />
+  </FeatureFlagsProvider>,
+  document.getElementById('root')
+);
 ```
 
 ### FeatureFlagsConsumer
@@ -36,21 +49,6 @@ Any component that need to be flipped must be wrapped with a `FeatureFlagsConsum
 </FeatureFlagsConsumer>
 ```
 
-Children's FeatureFlagsConsumer will only be rendered if authorizedFlags are active and present in the context.
+## License
 
-## Installation
-Clone this project, then run in your console :
-```bash
-$ npm install
-```
-
-## Launch
-Dev mode
-```bash
-$ npm start
-```
-
-Prod mode
-```bash
-$ npm run build
-```
+MIT © [romaindso](https://github.com/romaindso)
