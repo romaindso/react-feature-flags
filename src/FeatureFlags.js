@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-export const FeatureFlags = React.createContext();
+const FeatureFlags = React.createContext();
 
 export class FeatureFlagsConsumer extends Component {
   render() {
@@ -22,5 +22,14 @@ export class FeatureFlagsConsumer extends Component {
   }
 }
 
-
+export class FeatureFlagsProvider extends Component {
+  render() {
+    const { children, value } = this.props;
+    return (
+      <FeatureFlags.Provider value={value}>
+        {children}
+      </FeatureFlags.Provider>
+    )
+  }
+}
 

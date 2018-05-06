@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import { FeatureFlags } from './FeatureFlags';
+import { FeatureFlagsProvider } from './FeatureFlags';
 import './index.css';
 
 // To load from anywhere (fetch, localStorage, a json file, Redux...)
@@ -11,8 +11,8 @@ const flags = [
 ];
 
 ReactDOM.render(
-  <FeatureFlags.Provider value={flags}>
+  <FeatureFlagsProvider value={flags}>
     <App />
-  </FeatureFlags.Provider>,
+  </FeatureFlagsProvider>,
   document.getElementById('root')
 );
