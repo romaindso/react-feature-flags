@@ -17,9 +17,11 @@ const flags = [
 ```
 
 ### FeatureFlags.Provider
-Pass your flags to the `FeatureFlags.Provider` component with the `value` props.
+Wrap your root component with `FeatureFlags.Provider` and pass your flags to it with the `value` props.
 
 ```javascript
+import { FeatureFlags } from './FeatureFlags';
+
 <FeatureFlags.Provider value={flags}>
   <App />
 </FeatureFlags.Provider>
