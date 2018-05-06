@@ -11,6 +11,7 @@
     "url": "https://github.com/romaindso/react-feature-flags"
   },
   "dependencies": {
+    "prop-types": "^15.6.1",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
     "react-scripts": "1.1.4"
