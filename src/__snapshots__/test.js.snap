@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FeatureFlagsConsumer when flag is falsy it should return the component or element given by renderOff props when authorizedFlags match flags but aren't active 1`] = `
+<h1>
+  renderOff rendered
+</h1>
+`;
+
+exports[`FeatureFlagsConsumer when flag is falsy it should return the component or element given by renderOff props when there no matching flags 1`] = `
+<h1>
+  renderOff rendered
+</h1>
+`;
+
+exports[`FeatureFlagsConsumer when flag is truthy when exactFlags is falsy it should return the component or element given by children props when authorizedFlags match flags 1`] = `
+<h1>
+  children rendered
+</h1>
+`;
+
+exports[`FeatureFlagsConsumer when flag is truthy when exactFlags is falsy it should return the component or element given by renderOn props when authorizedFlags match flags 1`] = `
+<h1>
+  renderOn rendered
+</h1>
+`;
+
+exports[`FeatureFlagsConsumer when flag is truthy when exactFlags is truthy it should return the component or element given by renderOff props when authorizedFlags doesn't match exactly flags 1`] = `
+<h1>
+  renderOff rendered
+</h1>
+`;
+
+exports[`FeatureFlagsConsumer when flag is truthy when exactFlags is truthy it should return the component or element given by renderOff props when authorizedFlags match exactly flags but aren't all active 1`] = `
+<h1>
+  renderOff rendered
+</h1>
+`;
+
+exports[`FeatureFlagsConsumer when flag is truthy when exactFlags is truthy it should return the component or element given by renderOn props when authorizedFlags match exactly flags 1`] = `
+<h1>
+  renderOn rendered
+</h1>
+`;
+
+exports[`FeatureFlagsProvider it should return the given children 1`] = `
+<h1>
+  whatever node
+</h1>
+`;
