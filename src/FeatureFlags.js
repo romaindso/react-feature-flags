@@ -1,20 +1,44 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 const FeatureFlags = React.createContext();
 
 export class FeatureFlagsConsumer extends Component {
+
+  static propTypes = {
+    authorizedFlags: PropTypes.arrayOf(PropTypes.string).isRequired,
+    exactFlags: PropTypes.bool,
+    renderOn: PropTypes.func,
+    renderOff: PropTypes.func
+  }
+
+  static defaultProps = {
+    exactFlags: false,
+    renderOn: () => null,
+    renderOff: () => null
+  }
+
+
+  matchingFlags(flags) {
+    return flags.filter((flag) => {
+      return flag.isActive && this.props.authorizedFlags.includes(flag.name)
+    }).length;
+  }
+
   render() {
-    const { authorizedFlags } = this.props;
+    const { authorizedFlags, exactFlags } = this.props;
 
     return (
       <FeatureFlags.Consumer>
         {(flags) => {
-          if (flags.filter((flag) => {
-            return flag.isActive && authorizedFlags.includes(flag.name)
-          }).length) {
-            return this.props.children
+          if (exactFlags) {
+            return this.matchingFlags(flags) && this.matchingFlags(flags) === authorizedFlags.length
+              ? this.props.renderOn(flags)
+              : this.props.renderOff(flags);
           } else {
-            return null
+            return this.matchingFlags(flags)
+              ? this.props.renderOn(flags)
+              : this.props.renderOff(flags)
           }
         }}
       </FeatureFlags.Consumer>

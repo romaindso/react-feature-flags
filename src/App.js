@@ -11,12 +11,16 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">react-feature-flags</h1>
         </header>
-        <FeatureFlagsConsumer authorizedFlags={['vipOnly']}>
-          <h1>For VIP</h1>
-        </FeatureFlagsConsumer>
-        <FeatureFlagsConsumer authorizedFlags={['adminOnly']}>
-          <h1>For admin</h1>
-        </FeatureFlagsConsumer>
+        <FeatureFlagsConsumer
+          authorizedFlags={['vipOnly']}
+          renderOn={() => <h1>For VIP</h1>}
+          renderOff={() => <h1>For not vip</h1>}
+        />
+        <FeatureFlagsConsumer
+          authorizedFlags={['adminOnly', 'vipOnly']}
+          exactFlags
+          renderOn={() => <h1>For both admin and VIP</h1>}
+        />
       </div >
     );
   }
