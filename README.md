@@ -25,30 +25,30 @@ const flags = [
 ];
 ```
 
-### FeatureFlagsProvider
-Wrap your root component with `FeatureFlagsProvider` and pass your flags to it with the `value` props.
+### FlagsProvider
+Wrap your root component with `FlagsProvider` and pass your flags to it with the `value` props.
 
 ```javascript
 // (imports React, ReactDOM, App component...)
-import { FeatureFlagsProvider } from 'react-feature-flags';
+import { FlagsProvider } from 'react-feature-flags';
 
 ReactDOM.render(
-  <FeatureFlagsProvider value={flags}>
+  <FlagsProvider value={flags}>
     <App />
-  </FeatureFlagsProvider>,
+  </FlagsProvider>,
   document.getElementById('root')
 );
 ```
 
-### FeatureFlagsConsumer
-Any component that need to be flipped must be wrapped with a `FeatureFlagsConsumer` which receive by props an array of authorized flags.
+### Flags
+Any component that need to be flipped must be wrapped with a `Flags` which receive by props an array of authorized flags.
 
 ```javascript
-<FeatureFlagsConsumer authorizedFlags={['adminOnly']}>
+<Flags authorizedFlags={['adminOnly']}>
   <h1>For admin</h1>
-</FeatureFlagsConsumer>
+</Flags>
 ```
 
 ## License
 
-MIT © [romaindso](https://github.com/romaindso)
+MIT
