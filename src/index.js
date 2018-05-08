@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const FeatureFlags = React.createContext();
 
-export class FeatureFlagsConsumer extends Component {
+export class Flags extends Component {
 
   static propTypes = {
     authorizedFlags: PropTypes.arrayOf(PropTypes.string).isRequired,
@@ -50,7 +50,7 @@ export class FeatureFlagsConsumer extends Component {
   }
 }
 
-export class FeatureFlagsProvider extends Component {
+export class FlagsProvider extends Component {
 
   static propTypes = {
     value: PropTypes.arrayOf(PropTypes.shape({

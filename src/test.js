@@ -2,13 +2,13 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import Enzyme, { mount, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import { FeatureFlagsConsumer, FeatureFlagsProvider } from './';
+import { Flags, FlagsProvider } from './';
 
 Enzyme.configure({ adapter: new Adapter() });
 
-describe('FeatureFlagsConsumer', () => {
+describe('Flags', () => {
   it('is truthy', () => {
-    expect(FeatureFlagsConsumer).toBeTruthy()
+    expect(Flags).toBeTruthy()
   })
 
   describe('when flag is truthy', () => {
@@ -16,12 +16,12 @@ describe('FeatureFlagsConsumer', () => {
       it('it should return the component or element given by renderOn props when authorizedFlags match flags', () => {
         const tree = renderer
           .create(
-            <FeatureFlagsProvider value={[{ name: 'vipOnly', isActive: true }]}>
-              <FeatureFlagsConsumer
+            <FlagsProvider value={[{ name: 'vipOnly', isActive: true }]}>
+              <Flags
                 authorizedFlags={['vipOnly']}
                 renderOn={() => <h1>renderOn rendered</h1>}
               />
-            </FeatureFlagsProvider>
+            </FlagsProvider>
           ).toJSON();
         expect(tree).toMatchSnapshot();
       })
@@ -29,11 +29,11 @@ describe('FeatureFlagsConsumer', () => {
       it('it should return the component or element given by children props when authorizedFlags match flags', () => {
         const tree = renderer
           .create(
-            <FeatureFlagsProvider value={[{ name: 'vipOnly', isActive: true }]}>
-              <FeatureFlagsConsumer authorizedFlags={['vipOnly']}>
+            <FlagsProvider value={[{ name: 'vipOnly', isActive: true }]}>
+              <Flags authorizedFlags={['vipOnly']}>
                 <h1>children rendered</h1>
-              </FeatureFlagsConsumer>
-            </FeatureFlagsProvider>
+              </Flags>
+            </FlagsProvider>
           ).toJSON();
         expect(tree).toMatchSnapshot();
       })
@@ -43,13 +43,13 @@ describe('FeatureFlagsConsumer', () => {
       it(`it should return the component or element given by renderOn props when authorizedFlags match exactly flags`, () => {
         const tree = renderer
           .create(
-            <FeatureFlagsProvider value={[{ name: 'vipOnly', isActive: true }, { name: 'adminOnly', isActive: true }]}>
-              <FeatureFlagsConsumer
+            <FlagsProvider value={[{ name: 'vipOnly', isActive: true }, { name: 'adminOnly', isActive: true }]}>
+              <Flags
                 authorizedFlags={['vipOnly', 'adminOnly']}
                 exactFlags
                 renderOn={() => <h1>renderOn rendered</h1>}
               />
-            </FeatureFlagsProvider>
+            </FlagsProvider>
           ).toJSON();
         expect(tree).toMatchSnapshot();
       })
@@ -57,13 +57,13 @@ describe('FeatureFlagsConsumer', () => {
       it(`it should return the component or element given by renderOff props when authorizedFlags match exactly flags but aren't all active`, () => {
         const tree = renderer
           .create(
-            <FeatureFlagsProvider value={[{ name: 'vipOnly', isActive: true }, { name: 'adminOnly', isActive: false }]}>
-              <FeatureFlagsConsumer
+            <FlagsProvider value={[{ name: 'vipOnly', isActive: true }, { name: 'adminOnly', isActive: false }]}>
+              <Flags
                 authorizedFlags={['vipOnly', 'adminOnly']}
                 exactFlags
                 renderOff={() => <h1>renderOff rendered</h1>}
               />
-            </FeatureFlagsProvider>
+            </FlagsProvider>
           ).toJSON();
         expect(tree).toMatchSnapshot();
       })
@@ -71,13 +71,13 @@ describe('FeatureFlagsConsumer', () => {
       it(`it should return the component or element given by renderOff props when authorizedFlags doesn't match exactly flags`, () => {
         const tree = renderer
           .create(
-            <FeatureFlagsProvider value={[{ name: 'vipOnly', isActive: true }, { name: 'adminOnly', isActive: false }]}>
-              <FeatureFlagsConsumer
+            <FlagsProvider value={[{ name: 'vipOnly', isActive: true }, { name: 'adminOnly', isActive: false }]}>
+              <Flags
                 authorizedFlags={['vipOnly', 'unknowFlag']}
                 exactFlags
                 renderOff={() => <h1>renderOff rendered</h1>}
               />
-            </FeatureFlagsProvider>
+            </FlagsProvider>
           ).toJSON();
         expect(tree).toMatchSnapshot();
       })
@@ -88,25 +88,12 @@ describe('FeatureFlagsConsumer', () => {
     it(`it should return the component or element given by renderOff props when authorizedFlags match flags but aren't active`, () => {
       const tree = renderer
         .create(
-          <FeatureFlagsProvider value={[{ name: 'vipOnly', isActive: false }]}>
-            <FeatureFlagsConsumer
-              authorizedFlags={['vipOnly']}
-              renderOff={() => <h1>renderOff rendered</h1>}
-            />
-          </FeatureFlagsProvider>
-        ).toJSON();
-      expect(tree).toMatchSnapshot();
-    })
-
-    it('it should return the component or element given by renderOff props when there no matching flags', () => {
-      const tree = renderer
-        .create(
-          <FeatureFlagsProvider value={[{ name: 'vipOnly', isActive: false }]}>
-            <FeatureFlagsConsumer
+          <FlagsProvider value={[{ name: 'vipOnly', isActive: false }]}>
+            <Flags
               authorizedFlags={['unknowFlag']}
               renderOff={() => <h1>renderOff rendered</h1>}
             />
-          </FeatureFlagsProvider>
+          </FlagsProvider>
         ).toJSON();
       expect(tree).toMatchSnapshot();
     })
@@ -120,40 +107,7 @@ describe('FeatureFlagsConsumer', () => {
       ];
 
       const wrapper = shallow(
-        <FeatureFlagsConsumer
-          authorizedFlags={['vipOnly']}
-        />,
-        { context }
-      );
-
-      const result = wrapper.instance().matchingFlags(context);
-      expect(result).toEqual(1);
-    })
-
-    it('should return 0 when there no active flags from context that match with authorizedFlags props', () => {
-      const context = [
-        { name: 'vipOnly', isActive: false },
-        { name: 'adminOnly', isActive: true }
-      ];
-
-      const wrapper = shallow(
-        <FeatureFlagsConsumer
-          authorizedFlags={['vipOnly']}
-        />,
-        { context }
-      );
-
-      const result = wrapper.instance().matchingFlags(context);
-      expect(result).toEqual(0);
-    })
-
-    it(`should return 0 when active flags from context doesn't match authorizedFlags props`, () => {
-      const context = [
-        { name: 'vipOnly', isActive: true }
-      ];
-
-      const wrapper = shallow(
-        <FeatureFlagsConsumer
+        <Flags
           authorizedFlags={['unknowFalg']}
         />,
         { context }
@@ -172,27 +126,7 @@ describe('FeatureFlagsConsumer', () => {
       ];
 
       const wrapper = shallow(
-        <FeatureFlagsConsumer
-          authorizedFlags={['vipOnly']}
-          renderOn={() => <h1>renderOn props</h1>}
-        >
-          <h1>children props</h1>
-        </FeatureFlagsConsumer>,
-        { context }
-      );
-
-      const result = wrapper.instance().resolveRender(context);
-
-      expect(result).toEqual(<h1>children props</h1>);
-    })
-
-    it('should return renderOn props if there no children defined', () => {
-      const context = [
-        { name: 'vipOnly', isActive: true }
-      ];
-
-      const wrapper = shallow(
-        <FeatureFlagsConsumer
+        <Flags
           authorizedFlags={['vipOnly']}
           renderOn={() => <h1>renderOn props</h1>}
         />,
@@ -206,17 +140,17 @@ describe('FeatureFlagsConsumer', () => {
   })
 })
 
-describe('FeatureFlagsProvider', () => {
+describe('FlagsProvider', () => {
   it('is truthy', () => {
-    expect(FeatureFlagsProvider).toBeTruthy()
+    expect(FlagsProvider).toBeTruthy()
   })
 
   it('it should return the given children', () => {
     const tree = renderer
       .create(
-        <FeatureFlagsProvider value={[]}>
+        <FlagsProvider value={[]}>
           <h1>whatever node</h1>
-        </FeatureFlagsProvider>
+        </FlagsProvider>
       ).toJSON();
     expect(tree).toMatchSnapshot();
   })
