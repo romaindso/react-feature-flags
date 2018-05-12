@@ -22,27 +22,29 @@ export class Flags extends Component {
   matchingFlags(flags) {
     return flags.filter((flag) => {
       return flag.isActive && this.props.authorizedFlags.includes(flag.name)
-    }).length;
+    });
   }
 
-  resolveRender(flags) {
-    return this.props.children && this.props.children ? this.props.children : this.props.renderOn(flags);
+  resolveRender(matchingFlags) {
+    return this.props.children && this.props.children ? this.props.children : this.props.renderOn(matchingFlags);
   }
 
   render() {
     const { authorizedFlags, exactFlags } = this.props;
 
+
     return (
       <FeatureFlags.Consumer>
         {(flags) => {
+          const matchingFlags = this.matchingFlags(flags);
           if (exactFlags) {
-            return this.matchingFlags(flags) && this.matchingFlags(flags) === authorizedFlags.length
-              ? this.resolveRender(flags)
-              : this.props.renderOff(flags);
+            return matchingFlags.length === authorizedFlags.length
+              ? this.resolveRender(matchingFlags)
+              : this.props.renderOff(matchingFlags);
           } else {
-            return this.matchingFlags(flags)
-              ? this.resolveRender(flags)
-              : this.props.renderOff(flags)
+            return matchingFlags.length
+              ? this.resolveRender(matchingFlags)
+              : this.props.renderOff(matchingFlags)
           }
         }}
       </FeatureFlags.Consumer>

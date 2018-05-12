@@ -100,7 +100,7 @@ describe('Flags', () => {
   })
 
   describe('matchingFlags', () => {
-    it('should return 1 when the number of active flags from context that match with authorizedFlags props', () => {
+    it('should return an array containing all active flags from context that match with authorizedFlags props', () => {
       const context = [
         { name: 'vipOnly', isActive: true },
         { name: 'adminOnly', isActive: true }
@@ -115,7 +115,45 @@ describe('Flags', () => {
 
       const result = wrapper.instance().matchingFlags(context);
 
-      expect(result).toEqual(0);
+      expect(result).toEqual([]);
+
+      wrapper.setContext()
+    })
+
+    it('should return an array containing all active flags from context that match with authorizedFlags props', () => {
+      const context = [
+        { name: 'vipOnly', isActive: true },
+        { name: 'adminOnly', isActive: true }
+      ];
+
+      const wrapper = shallow(
+        <Flags
+          authorizedFlags={['vipOnly', 'adminOnly']}
+        />,
+        { context }
+      );
+
+      const result = wrapper.instance().matchingFlags(context);
+
+      expect(result).toEqual(context);
+    })
+
+    it('should return an array containing all active flags from context that match with authorizedFlags props', () => {
+      const context = [
+        { name: 'vipOnly', isActive: true },
+        { name: 'adminOnly', isActive: false }
+      ];
+
+      const wrapper = shallow(
+        <Flags
+          authorizedFlags={['vipOnly', 'adminOnly']}
+        />,
+        { context }
+      );
+
+      const result = wrapper.instance().matchingFlags(context);
+
+      expect(result).toEqual([{ name: 'vipOnly', isActive: true }]);
     })
   })
 
