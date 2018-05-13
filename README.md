@@ -69,7 +69,7 @@ import { Flags } from 'react-feature-flags';
 import { Flags } from 'react-feature-flags';
 
 <Flags authorizedFlags={['adminOnly']}
-  renderOn={() => <h1>For admin</h1>}
+  renderOn={(authorizedFlags) => <h1>For admin</h1>}
 />
 ```
 
@@ -85,7 +85,7 @@ import { Flags } from 'react-feature-flags';
 ```
 
 #### when all flags are required
-You can use the `exactFlags` props when you require every `authorizedFlags` to be active before rendering something.
+You can use the `exactFlags` props when you require all flag specified by `authorizedFlags` to be active before rendering something.
 
 
 ```javascript
@@ -93,10 +93,24 @@ import { Flags } from 'react-feature-flags';
 
 <Flags 
   exactFlags
-  authorizedFlags={['flagA', 'flagB']}
+  authorizedFlags={['flag', 'flagB']}
   renderOn={() => <h1>visible when flagA AND flagB are active</h1>}
 />
 ```
+
+#### optionaly you can pass active flags down to children components
+
+```javascript
+import { Flags } from 'react-feature-flags';
+
+<Flags 
+  exactFlags
+  authorizedFlags={['flag', 'flagB']}
+  renderOn={(activeFlags) => <SomeComponent />}
+/>
+```
+
+`SomeComponent` will access to active flags (flags from context that match with authorizedFlags props)
 
 ## License
 
