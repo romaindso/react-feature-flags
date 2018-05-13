@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import App from './App';
 import { FlagsProvider } from 'react-feature-flags';
+import './index.css';
 
 // To load from anywhere (fetch, localStorage, a json file, Redux...)
 const flags = [

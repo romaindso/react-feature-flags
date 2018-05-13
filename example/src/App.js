@@ -4,10 +4,11 @@ import { Flags } from 'react-feature-flags';
 export default class App extends Component {
   render() {
     return (
-      <div>
+      <div className="App">
+        <header><h1>react-feature-flipping</h1></header>
         <Flags
           authorizedFlags={['vipOnly']}
-          renderOn={() => <h1>VIP (renderProps)</h1>}
+          renderOn={(flag) => <h1>VIP (renderProps)</h1>}
           renderOff={() => <h1>NO VIP (renderProps)</h1>}
         />
         <Flags authorizedFlags={['vipOnly']}>
