@@ -102,6 +102,7 @@ import { Flags } from 'react-feature-flags';
 ```
 
 #### optionaly you can pass active flags down to children components
+`SomeComponent` will access to active flags (flags from context that match with authorizedFlags props)
 
 ```javascript
 import { Flags } from 'react-feature-flags';
@@ -112,8 +113,6 @@ import { Flags } from 'react-feature-flags';
   renderOn={(activeFlags) => <SomeComponent />}
 />
 ```
-
-`SomeComponent` will access to active flags (flags from context that match with authorizedFlags props)
 
 ## License
 
