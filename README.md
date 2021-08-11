@@ -32,8 +32,8 @@ const flags = [
 ```
 
 ### FlagsProvider
-Wrap your root component with `FlagsProvider` and pass your flags to it with the `value` props.
-That's how they will be available to all `Flags` component thanks to React context.
+Wrap your root component with `FlagsProvider` and pass your flags using the `value` prop.
+That's how they will be available to all `Flags` components, thanks to [React context](https://reactjs.org/docs/context.html).
 
 ```javascript
 import { FlagsProvider } from 'react-feature-flags';
@@ -49,11 +49,11 @@ ReactDOM.render(
 ### Flags
 `Flags` components are aware of all flags given to `FlagsProvider`.
 
-To render a node or a component based on your flags, you must pass by props an array of authorized flags to `Flags` component. 
+To render a node or a component based on your flags, you must pass an array of `authorizedFlags` as a prop to the `Flags` component. `authorizedFlags` is an array of one or more of string flag names defined in the `FlagsProvider`
 
-Then you can wrapped the desired component as children to a `Flag` component or use a `renderOn` props. It will be rendered if one or many flags are active (isActive) and match the flags included in `authorizedFlags`.
+Then you can wrap the desired component as a child to a `Flag` component or use the `renderOn` prop. It will be rendered if one or more flags are active (isActive) and match the flags included in `authorizedFlags`.
 
-If the flags are not active neither matched with `authorizedFlags` nothing will be rendered unless you pass a component as fallback by the `renderOff` props.
+If the flags are neither active nor matched with `authorizedFlags`, nothing will be rendered unless you pass a component as a fallback by the `renderOff` prop.
 
 
 #### with children props
@@ -66,7 +66,7 @@ import { Flags } from 'react-feature-flags';
 </Flags>
 ```
 
-#### with renderOn props
+#### with the renderOn prop
 
 ```javascript
 import { Flags } from 'react-feature-flags';
@@ -76,7 +76,7 @@ import { Flags } from 'react-feature-flags';
 />
 ```
 
-#### with renderOn props and renderOff props as fallback
+#### with the renderOn prop and renderOff prop as a fallback
 
 ```javascript
 import { Flags } from 'react-feature-flags';
@@ -88,26 +88,27 @@ import { Flags } from 'react-feature-flags';
 ```
 
 #### when all flags are required
-You can use the `exactFlags` props when you require all flag specified by `authorizedFlags` to be active before rendering something.
+You can use the `exactFlags` prop when you require all flags that are specified by `authorizedFlags` to be active before rendering something.
 
 
 ```javascript
 import { Flags } from 'react-feature-flags';
 
-<Flags 
+<Flags
   exactFlags
-  authorizedFlags={['flag', 'flagB']}
+  authorizedFlags={['flagA', 'flagB']}
   renderOn={() => <h1>visible when flagA AND flagB are active</h1>}
 />
 ```
 
-#### optionaly you can pass active flags down to children components
-`SomeComponent` will access to active flags (flags from context that match with authorizedFlags props)
+#### optionally, you can pass active flags down to children components
+In the example below, `SomeComponent` will have access to activeFlags i.e. flags from [React context](https://reactjs.org/docs/context.html)
+that match with the authorizedFlags props.
 
 ```javascript
 import { Flags } from 'react-feature-flags';
 
-<Flags 
+<Flags
   exactFlags
   authorizedFlags={['flag', 'flagB']}
   renderOn={(activeFlags) => <SomeComponent />}
