@@ -116,4 +116,4 @@ import { Flags } from 'react-feature-flags';
 
 ## License
 
-MIT
+[MIT](./LICENSE)
