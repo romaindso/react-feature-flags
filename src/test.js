@@ -176,6 +176,13 @@ describe('Flags', () => {
       expect(result).toEqual(<h1>renderOn props</h1>);
     })
   })
+
+  describe('without context', () => {
+    it('without FlagsProvider or context', () => {
+      return expect(() => mount(<Flags authorizedFlags={[]} />))
+        .toThrow('You should not use <Flags> outside a <FlagsProvider>')
+    })
+  })
 })
 
 describe('FlagsProvider', () => {

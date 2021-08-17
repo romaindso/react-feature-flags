@@ -36,6 +36,10 @@ export class Flags extends Component {
     return (
       <FeatureFlags.Consumer>
         {(flags) => {
+          if (!Array.isArray(flags)) {
+            throw new Error('You should not use <Flags> outside a <FlagsProvider>');
+          }
+
           const matchingFlags = this.matchingFlags(flags);
           if (exactFlags) {
             return matchingFlags.length === authorizedFlags.length
