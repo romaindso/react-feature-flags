@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-const FeatureFlags = React.createContext();
+export const FeatureFlags = React.createContext();
 
 export class Flags extends Component {
 
